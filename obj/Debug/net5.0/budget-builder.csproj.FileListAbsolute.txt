@@ -1,0 +1,16 @@
+/home/samch/c#/budget-builder/bin/Debug/net5.0/budget-builder
+/home/samch/c#/budget-builder/bin/Debug/net5.0/budget-builder.deps.json
+/home/samch/c#/budget-builder/bin/Debug/net5.0/budget-builder.runtimeconfig.json
+/home/samch/c#/budget-builder/bin/Debug/net5.0/budget-builder.runtimeconfig.dev.json
+/home/samch/c#/budget-builder/bin/Debug/net5.0/budget-builder.dll
+/home/samch/c#/budget-builder/bin/Debug/net5.0/ref/budget-builder.dll
+/home/samch/c#/budget-builder/bin/Debug/net5.0/budget-builder.pdb
+/home/samch/c#/budget-builder/obj/Debug/net5.0/budget-builder.csproj.AssemblyReference.cache
+/home/samch/c#/budget-builder/obj/Debug/net5.0/budget-builder.GeneratedMSBuildEditorConfig.editorconfig
+/home/samch/c#/budget-builder/obj/Debug/net5.0/budget-builder.AssemblyInfoInputs.cache
+/home/samch/c#/budget-builder/obj/Debug/net5.0/budget-builder.AssemblyInfo.cs
+/home/samch/c#/budget-builder/obj/Debug/net5.0/budget-builder.csproj.CoreCompileInputs.cache
+/home/samch/c#/budget-builder/obj/Debug/net5.0/budget-builder.dll
+/home/samch/c#/budget-builder/obj/Debug/net5.0/ref/budget-builder.dll
+/home/samch/c#/budget-builder/obj/Debug/net5.0/budget-builder.pdb
+/home/samch/c#/budget-builder/obj/Debug/net5.0/budget-builder.genruntimeconfig.cache
