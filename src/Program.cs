@@ -1,46 +1,14 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Globalization;
 
 namespace budget_builder
 {
     class Program
     {
-        static double readTotalBudget()
-        {
-            double total = 0;
-
-            string line;
-            try
-            {
-                StreamReader sr = new StreamReader("balanceChanges.txt");
-                line = sr.ReadLine();
-                while (line != null)
-                {
-                    Console.WriteLine(line);
-                    line = sr.ReadLine();
-                }
-                sr.Close();
-                Console.ReadLine();
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine("Exception: " + e.Message);
-            }
-
-            return total;
-        }
-
         static void addBudget(List<Budget> list, string name, double percentage)
         {
-            list.Add(new Budget() { Name=name, Percentage=percentage });
-        }
-
-        static async Task writeBalanceChange(double balanceChange)
-        {
-            using StreamWriter file = new("balanceChanges.txt", append: true);
-            await file.WriteLineAsync(DateTime.Now.ToString() + ",\t$" + balanceChange.ToString());
+            list.Add(new Budget(percentage, name));
         }
 
         static double getLeftoverPercent(List<Budget> budgets)
@@ -69,7 +37,7 @@ namespace budget_builder
             Console.WriteLine("Budget Percentages");
             foreach (Budget budget in budgets)
             {
-                Console.WriteLine(budget.Name + ": " + budget.Percentage + "%");
+                Console.WriteLine(budget.ToString());
             }
             Console.WriteLine("Leftover: " + leftoverPercent + "%");
 
@@ -97,10 +65,10 @@ namespace budget_builder
                 else
                 {
                     balance += inputBalance;
-                    var task = writeBalanceChange(balance);
+                    var task = BudgetIO.writeBalanceChange(balance);
                 }
             }
-            readTotalBudget();
+            Console.WriteLine(BudgetIO.readTotalBudget().ToString("C", CultureInfo.CreateSpecificCulture("en-US")));
         }
     }
 }
