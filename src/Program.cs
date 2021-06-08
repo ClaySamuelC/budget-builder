@@ -18,20 +18,6 @@ namespace budget_builder
             return leftoverPercentage;
         }
 
-        static string budgetReport(double balance, List<Budget> budgets)
-        {
-            string report = "";
-
-            report += ("Total Balance: " + balance.ToString("C") + "\n");
-            report += ("Current budget:\n");
-            foreach (Budget budget in budgets)
-            {
-                report += ("  " + budget.ToString() + "\n");
-            }
-
-            return report;
-        }
-
         static void Main(string[] args)
         {
             // set current culture
@@ -41,9 +27,6 @@ namespace budget_builder
             budgets.Add(new Budget(0.5, "Savings"));
             budgets.Add(new Budget(0.1, "Transportation"));
             budgets.Add(new Budget(0.2, "Dates"));
-
-            string input = "";
-            double inputBalance = 0.0;
 
             double balance = BudgetIO.readTotalBudget();
             double leftoverPercent = getLeftoverPercent(budgets);
@@ -59,27 +42,29 @@ namespace budget_builder
                 budget.setBalance(balance);
             }
 
-            while (input != "q")
-            {
-                Console.WriteLine(budgetReport(balance, budgets));
-                Console.WriteLine("Enter a change in balance (q to quit)");
 
-                input = Console.ReadLine();
-                if (!double.TryParse(input, out inputBalance))
+            Display.displayHelp();
+
+            bool exitFlag = false;
+            while (!exitFlag)
+            {
+                string nextAction = Display.getNextAction();
+
+                switch (nextAction)
                 {
-                    if (input == "q")
-                    {
-                        Console.WriteLine("Quitting");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid Input");
-                    }
-                }
-                else
-                {
-                    balance += inputBalance;
-                    var task = BudgetIO.writeBalanceChange(inputBalance);
+                    case ("quit"):
+                        exitFlag = true;
+                        break;
+                    case ("update balance"):
+                        double balanceChange = Display.getBalanceChange();
+                        var task = BudgetIO.writeBalanceChange(balanceChange);
+                        break;
+                    case ("display budget"):
+                        Display.displayBudgetReports(balance, budgets);
+                        break;
+                    case ("help"):
+                        Display.displayHelp();
+                        break;
                 }
             }
         }

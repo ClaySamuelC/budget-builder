@@ -7,13 +7,14 @@ namespace budget_builder
 {
   class BudgetIO
   {
-    public async Task writeBalanceChange(double balanceChange)
+    public static async Task writeBalanceChange(double balanceChange)
     {
       using StreamWriter file = new("src/db/balanceChanges.txt", append: true);
+
       await file.WriteLineAsync(DateTime.Now.ToString() + ",\t$" + balanceChange.ToString());
     }
 
-    private double readBalanceTotals()
+    private static double readBalanceTotals()
     {
       double total = 0;
 
@@ -32,13 +33,14 @@ namespace budget_builder
       return total;
     }
 
-    private async Task writeBalanceTotals(double total)
+    private static async Task writeBalanceTotals(double total)
     {
       using StreamWriter file = new("src/db/balanceTotals.txt");
+
       await file.WriteLineAsync(total.ToString());
     }
 
-    public double readTotalBudget()
+    public static double readTotalBudget()
     {
       double total = 0;
 
@@ -63,9 +65,10 @@ namespace budget_builder
       return total;
     }
 
-    public async Task writeBudgets(double total, List<Budget> budgets)
+    public static async Task writeBudgets(double total, List<Budget> budgets)
     {
       using StreamWriter file = new("src/db/balanceTotals.txt", append: false);
+
       foreach(Budget budget in budgets)
       {
         await file.WriteLineAsync(budget.ToString());
