@@ -20,9 +20,14 @@ namespace budget_builder
       return Name + ": " + Percentage.ToString("P2", culture) + " " + Balance.ToString("C", culture);
     }
 
+    public void setBalance(double preBudgetedBalance)
+    {
+      Balance = Percentage * preBudgetedBalance;
+    }
+
     public void changeBalance(double preBudgetedBalanceChange)
     {
-      Balance += preBudgetedBalanceChange * Percentage;
+      Balance += Percentage * preBudgetedBalanceChange;
     }
   }
 }

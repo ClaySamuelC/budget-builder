@@ -33,23 +33,28 @@ namespace budget_builder
             string input = "";
             double inputBalance = 0.0;
 
-            double balance = 0.0;
+            double balance = BudgetIO.readTotalBudget();
             double leftoverPercent = getLeftoverPercent(budgets);
-            addBudget(budgets, "Leftover", leftoverPercent);
 
-            Console.WriteLine("Budget Percentages");
+            if (leftoverPercent > 0.0)
+            {
+                addBudget(budgets, "Leftover", leftoverPercent);
+            }
+
             foreach (Budget budget in budgets)
             {
-                Console.WriteLine(budget.ToString(culture));
+                budget.setBalance(balance);
+            }
+
+            // report current budget
+            Console.WriteLine("Current budget:");
+            foreach (Budget budget in budgets)
+            {
+                Console.WriteLine("  " + budget.ToString(culture));
             }
 
             while (input != "q")
             {
-                foreach (Budget budget in budgets)
-                {
-                    Console.WriteLine("Current Balance towards " + budget.Name + ": $" + balance * budget.Percentage);
-                }
-                Console.WriteLine("Leftover Balance: $" + balance * leftoverPercent);
                 Console.WriteLine("Enter a change in balance (q to quit)");
 
                 input = Console.ReadLine();
@@ -70,7 +75,6 @@ namespace budget_builder
                     var task = BudgetIO.writeBalanceChange(balance);
                 }
             }
-            Console.WriteLine(BudgetIO.readTotalBudget().ToString("C", culture));
         }
     }
 }
