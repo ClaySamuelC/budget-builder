@@ -1,5 +1,3 @@
-using System.Globalization;
-
 namespace budget_builder
 {
   class Budget
