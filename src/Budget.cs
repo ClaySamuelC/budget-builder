@@ -15,9 +15,9 @@ namespace budget_builder
       Balance = 0;
     }
 
-    public override string ToString()
+    public string ToString(CultureInfo culture)
     {
-      return Name + ": " + Percentage.ToString("P2") + " " + Balance.ToString("C", CultureInfo.CreateSpecificCulture("en-US"));
+      return Name + ": " + Percentage.ToString("P2", culture) + " " + Balance.ToString("C", culture);
     }
 
     public void changeBalance(double preBudgetedBalanceChange)

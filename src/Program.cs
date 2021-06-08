@@ -28,18 +28,20 @@ namespace budget_builder
             List<Budget> budgets = new List<Budget>();
             addBudget(budgets, "Savings", 0.5);
 
+            CultureInfo culture = new CultureInfo("en-US", false);
+
             string input = "";
             double inputBalance = 0.0;
 
             double balance = 0.0;
             double leftoverPercent = getLeftoverPercent(budgets);
+            addBudget(budgets, "Leftover", leftoverPercent);
 
             Console.WriteLine("Budget Percentages");
             foreach (Budget budget in budgets)
             {
-                Console.WriteLine(budget.ToString());
+                Console.WriteLine(budget.ToString(culture));
             }
-            Console.WriteLine("Leftover: " + leftoverPercent + "%");
 
             while (input != "q")
             {
@@ -68,7 +70,7 @@ namespace budget_builder
                     var task = BudgetIO.writeBalanceChange(balance);
                 }
             }
-            Console.WriteLine(BudgetIO.readTotalBudget().ToString("C", CultureInfo.CreateSpecificCulture("en-US")));
+            Console.WriteLine(BudgetIO.readTotalBudget().ToString("C", culture));
         }
     }
 }
