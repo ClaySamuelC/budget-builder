@@ -6,11 +6,6 @@ namespace budget_builder
 {
     class Program
     {
-        static void addBudget(List<Budget> list, string name, double percentage)
-        {
-            list.Add(new Budget(percentage, name));
-        }
-
         static double getLeftoverPercent(List<Budget> budgets)
         {
             double leftoverPercentage = 1.0;
@@ -23,12 +18,29 @@ namespace budget_builder
             return leftoverPercentage;
         }
 
+        static string budgetReport(double balance, List<Budget> budgets)
+        {
+            string report = "";
+
+            report += ("Total Balance: " + balance.ToString("C") + "\n");
+            report += ("Current budget:\n");
+            foreach (Budget budget in budgets)
+            {
+                report += ("  " + budget.ToString() + "\n");
+            }
+
+            return report;
+        }
+
         static void Main(string[] args)
         {
-            List<Budget> budgets = new List<Budget>();
-            addBudget(budgets, "Savings", 0.5);
+            // set current culture
+            CultureInfo.CurrentCulture = new CultureInfo("en-US", false);
 
-            CultureInfo culture = new CultureInfo("en-US", false);
+            List<Budget> budgets = new List<Budget>();
+            budgets.Add(new Budget(0.5, "Savings"));
+            budgets.Add(new Budget(0.1, "Transportation"));
+            budgets.Add(new Budget(0.2, "Dates"));
 
             string input = "";
             double inputBalance = 0.0;
@@ -38,23 +50,18 @@ namespace budget_builder
 
             if (leftoverPercent > 0.0)
             {
-                addBudget(budgets, "Leftover", leftoverPercent);
+                budgets.Add(new Budget(leftoverPercent, "Leftover"));
             }
 
+            // set each balance
             foreach (Budget budget in budgets)
             {
                 budget.setBalance(balance);
             }
 
-            // report current budget
-            Console.WriteLine("Current budget:");
-            foreach (Budget budget in budgets)
-            {
-                Console.WriteLine("  " + budget.ToString(culture));
-            }
-
             while (input != "q")
             {
+                Console.WriteLine(budgetReport(balance, budgets));
                 Console.WriteLine("Enter a change in balance (q to quit)");
 
                 input = Console.ReadLine();
@@ -72,7 +79,7 @@ namespace budget_builder
                 else
                 {
                     balance += inputBalance;
-                    var task = BudgetIO.writeBalanceChange(balance);
+                    var task = BudgetIO.writeBalanceChange(inputBalance);
                 }
             }
         }
